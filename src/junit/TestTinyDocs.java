@@ -61,6 +61,8 @@ public class TestTinyDocs
     @Test
     public void testFile1File2InCommon() throws Exception {
         makeDetector(3);
+        System.out.println(detector.getResults());
+        //System.out.println(detector.getResults());
         String msg1 = "If you return 6, then you are double-counting";
         assertEquals(msg1, 3, detector.getNumNGramsInCommon(FILE1, FILE2));
         String msg2 = "If you return 0, then you are counting in one direction (file1 to file2) but not the reverse (file2 to file1)";
