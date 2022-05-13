@@ -13,7 +13,7 @@ public class PlagiarismDetector implements IPlagiarismDetector {
 	
 	public int n;
 	public Map<String, Map<String, Integer>> results = new HashMap<>();
-	public static Map<String, Set<String>> ngram = new HashMap<>();
+	public  Map<String, Set<String>> ngram = new HashMap<>();
 	public PlagiarismDetector(int n) {
 		this.n = n;
 		
@@ -50,21 +50,24 @@ public class PlagiarismDetector implements IPlagiarismDetector {
 	@Override
 	public Map<String, Map<String, Integer>> getResults() {
 		// TODO Auto-generated method stub
-		for (Map.Entry<String, Set<String>> set : ngram.entrySet()) {
-			for (Map.Entry<String, Set<String>> set2 : ngram.entrySet()) {
-				   //if(set.getKey() != set2.getKey()) {
+		var entrySet = ngram.entrySet();
+		for (var entry : entrySet) {
+			//System.out.println(set.getKey());
+			for (var entry2 : entrySet) { //For some reason these loops dont add all different types of combinations to the map.
+				//System.out.println(set2.getKey());
+				   if(entry.getKey() != entry2.getKey()) {
 					int ctr = 0;
-					   for(String s : set.getValue()) {
-						   if(set2.getValue().contains(s)) {
+					   for(String s : entry.getValue()) {
+						   if(entry2.getValue().contains(s)) {
 							   ctr++;
 						   }
 					   }
 				   	
 				   final Integer i = Integer.valueOf(ctr);
 				   Map<String, Integer> set2Map = new HashMap<>();
-				   set2Map.put(set2.getKey(), i);
-				   results.put(set.getKey(), set2Map);
-			//}
+				   set2Map.put(entry2.getKey(), i);
+				   results.put(entry.getKey(), set2Map);
+			}
 			}
 	
 	}
